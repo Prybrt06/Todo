@@ -3,10 +3,22 @@ import 'package:flutter/src/services/asset_bundle.dart';
 import 'package:flutter/src/painting/image_provider.dart';
 import 'package:to_do/screens/newTaskAddScreen.dart';
 import 'package:to_do/widget/taskList.dart';
+import 'package:to_do/Models/taskItem.dart';
 import 'package:to_do/widget/taskWidget.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<TaskItem> tasks = [
+    TaskItem(name: "Buy Milk"),
+    TaskItem(name: "Buy eggs"),
+    TaskItem(name: "Buy breads"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +77,7 @@ class TasksScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: new TaskList(),
+                        child: new TaskList(tasks: tasks),
                       ),
                     ),
                   ),
@@ -73,6 +85,10 @@ class TasksScreen extends StatelessWidget {
               ),
             ),
             Positioned(
+              right: 30,
+              bottom: 30,
+              width: 50,
+              height: 50,
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
@@ -82,7 +98,15 @@ class TasksScreen extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: AddTaskScreen(),
+                        child: AddTaskScreen(
+                          addTaskCallBack: (newTaskTitle) {
+                            setState(() {
+                              tasks.add(
+                                TaskItem(name: newTaskTitle),
+                              );
+                            });
+                          },
+                        ),
                       ),
                     ),
                   );
@@ -104,10 +128,6 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              right: 30,
-              bottom: 30,
-              width: 50,
-              height: 50,
             ),
           ],
         ),
