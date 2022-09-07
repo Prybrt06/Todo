@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/services/asset_bundle.dart';
 import 'package:flutter/src/painting/image_provider.dart';
+import 'package:to_do/screens/newTaskAddScreen.dart';
 import 'package:to_do/widget/taskList.dart';
 import 'package:to_do/widget/taskWidget.dart';
 
 class TasksScreen extends StatelessWidget {
   const TasksScreen({Key? key}) : super(key: key);
-
-  Widget buildBottomSheet(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +76,16 @@ class TasksScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                      context: context, builder: buildBottomSheet);
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: AddTaskScreen(),
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   child: Image(
