@@ -14,11 +14,7 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<TaskItem> tasks = [
-    TaskItem(name: "Buy Milk"),
-    TaskItem(name: "Buy eggs"),
-    TaskItem(name: "Buy breads"),
-  ];
+  List<TaskItem> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +50,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       top: 20,
                     ),
                     child: Text(
-                      'No. of Tasks',
+                      '',
                       style: TextStyle(
                         fontSize: 14,
                       ),

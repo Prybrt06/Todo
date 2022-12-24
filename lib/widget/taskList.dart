@@ -17,15 +17,19 @@ class _TaskListState extends State<TaskList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return task(
-          isChecked: widget.tasks[index].isDone,
-          taskTitle: widget.tasks[index].name,
-          checkBoxCallBack: (bool? checkBoxState) {
-            setState(() {
-              widget.tasks[index].toggleDone();
-            });
-          },
-        );
+        return widget.tasks.length == 0
+            ? Image(
+                image: AssetImage("assets/images/empty.png"),
+              )
+            : task(
+                isChecked: widget.tasks[index].isDone,
+                taskTitle: widget.tasks[index].name,
+                checkBoxCallBack: (bool? checkBoxState) {
+                  setState(() {
+                    widget.tasks[index].toggleDone();
+                  });
+                },
+              );
       },
       itemCount: widget.tasks.length,
     );
